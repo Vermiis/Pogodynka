@@ -1,8 +1,14 @@
 import pymssql
+import configparser
+config = configparser.RawConfigParser()
+config.read('config.ini')
+
+hostname = config['DEFAULT']['ServerName']
+
 
 #przyklad z neta, trzeba rozbic na funckje  :)
 
-conn = pymssql.connect(host='localhost', user='usrnm', password='passwd', Database='mydb')
+conn = pymssql.connect(host=hostname, user='usrnm', password='passwd', Database='mydb')
 cur = conn.cursor()
 
 #CREATE , INSERT , UPDATE, SELECT always use execute command
