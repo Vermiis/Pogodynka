@@ -1,38 +1,41 @@
 from html.parser import HTMLParser
 from bs4 import BeautifulSoup
 import lxml.html
-
 import urllib
+from lxml import etree
+
+class EtreeParser:
 
 
-class MyHTMLParser(HTMLParser):
-    def handle_starttag(self, tag, attrs):
-        print("Encountered a start tag:", tag)
+    def GetXpathText(self, xpathtext):
+        htmlfile = ""  #htmlstr
+        tempValList=[]
+        info = etree.XML(htmlfile)
 
-    def handle_endtag(self, tag):
-        print("Encountered an end tag :", tag)
+        x = info.xpath(xpathtext)
+        tempValList.append(x)
 
-    def handle_data(self, data):
-        print("Encountered some data  :", data)
 
-parser = MyHTMLParser()
-parser.feed('<html><head><title>Test</title></head>'
-            '<body><h1>Parse me!</h1></body></html>')
+
+
 
 #<!--nucleo, fin del prologo -->
 
 
-class SoupParser:
-    def get_tag_data(self, tagname, htmlfile):
-        soup = BeautifulSoup(htmlfile, 'html.parser')
-        doc = lxml.html.fromstring(htmlfile)
-        for element in doc.xpath('//label[contains(text(), "PRICE:")]/ancestor::div[@class="price_class"]'):
-            print('Found %s: %s' % (element.tag, element.text_content().strip()))
 
 
+#1st selector body > table > tbody > tr:nth-child(2) > td:nth-child(2) > table:nth-child(4) > tbody > tr:nth-child(1) > td:nth-child(2) > font
+    #xpath selector /html/body/table/tbody/tr[2]/td[2]/table[2]/tbody/tr[1]/td[2]/font
+    #/html/body/table/tbody/tr[2]/td[2]/table[2]/tbody/tr[2]/td[2]/font
+    #/html/body/table/tbody/tr[2]/td[2]/table[2]/tbody/tr[30]/td[2]/font
 
-    def get_page_data(self):
-        page = urllib.urlopen('http://www.google.com/')
+
+    def get_page_data(self, days, day, month, year):
+        addrstr = "https://www.ogimet.com/cgi-bin/gsynres?lang=en&ord=REV&ndays=" + days + "&ano=" + year + "&mes=" + month + "&day=" + day + "&hora=18&ind=12600"
+        page = urllib.urlopen(addrstr)
         htmlstring = page.read()
         return  htmlstring
 
+
+
+#https://www.ogimet.com/cgi-bin/gsynres?lang=en&ord=REV&ndays=30&ano=2015&mes=02&day=01&hora=18&ind=12600
