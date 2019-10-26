@@ -1,0 +1,4 @@
+body > table > tbody > tr:nth-child(2) > td:nth-child(2) > table:nth-child(4)
+<table align="center" border="0" cellspacing="1" bgcolor="#d0d0d0">
+<caption> Daily summary at <font color="#030509"><b>18:00 UTC</b></font>. (19:15 mean solar time)<br>Time interval: <b>30</b> days before <b>2018/12/01</b></caption>
+<tbody>
